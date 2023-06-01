@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from "react"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,8 +10,17 @@ import Navbar from "./components/Navbar"
 
 
 function App() {
+  useEffect(
+    () => {
+      alert("hello pokemon trainer :)");
+    },
+    []
+  );
 
-  const [currentIndex, setCurrentIndex] = useState(2);
+
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const pokemonList = [
 
     {
@@ -43,6 +53,7 @@ function App() {
 
     },
 
+
     {
 
       name: "pikachu",
@@ -52,7 +63,6 @@ function App() {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
 
     },
-
     {
 
       name: "mew",
@@ -60,6 +70,18 @@ function App() {
     },
 
   ];
+
+  const pikachu = pokemonList[currentIndex];
+  useEffect(
+    () => {
+      if (pikachu.name === "pikachu") {
+        alert("tamerelaputepikachu)");
+      }
+    }
+  );
+
+
+
 
   return (
     <div>
