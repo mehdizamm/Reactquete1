@@ -1,36 +1,25 @@
 
-
 function Navbar({ propsCounter, pokemonList }) {
+    const [currentIndex, setCurrentIndex] = propsCounter;
 
-    const [setCurrentIndex, currentIndex] = propsCounter;
-
-    function handlePrevious() {
-
-        setCurrentIndex(function (prevIndex) {
-            return prevIndex === 0 ? pokemonList.length - 1 : prevIndex - 1;
-
-        });
-
-    }
-
-    function handleNext() {
-        setCurrentIndex(function (prevIndex) {
-            return prevIndex === pokemonList.length - 1 ? 0 : prevIndex + 1;
-        });
-    }
-
-
+    const handleClick = (index) => {
+        setCurrentIndex(index);
+    };
 
     return (
         <div>
-            <button onClick={handlePrevious}>Previous</button>
-            <button onClick={handleNext}>Next</button>
-        </div>
-    )
+            {pokemonList.map((pokemon, index) => (
+                <div key={pokemon.name}>
+                    <button onClick={() => handleClick(index)}>{pokemon.name}</button>
+                </div>
+            ))}
 
-};
+        </div>
+    );
+}
 
 
 
 
 export default Navbar;
+

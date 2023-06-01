@@ -1,95 +1,84 @@
-import { useState } from 'react'
-import { useEffect } from "react"
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import MyTitle from "./components/MyTitle"
-import PokemonCard from "./components/PokemonCard"
-import Navbar from "./components/Navbar"
-
-
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  useEffect(
-    () => {
-      alert("hello pokemon trainer :)");
-    },
-    []
-  );
-
-
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const pokemonList = [
-
     {
-
-      name: "bulbasaur",
-
+      name: 'bulbasaur',
       imgSrc:
-
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
     },
-
     {
-
-      name: "charmander",
-
+      name: 'charmander',
       imgSrc:
-
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png',
     },
-
     {
-
-      name: "squirtle",
-
+      name: 'squirtle',
       imgSrc:
-
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png',
     },
-
-
     {
-
-      name: "pikachu",
-
+      name: 'pikachu',
       imgSrc:
-
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
     },
     {
-
-      name: "mew",
-
+      name: 'mew',
     },
-
   ];
 
-  const pikachu = pokemonList[currentIndex];
-  useEffect(
-    () => {
-      if (pikachu.name === "pikachu") {
-        alert("tamerelaputepikachu)");
-      }
+  const handlePokemonClick = (index) => {
+    setCurrentIndex(index);
+  };
+
+  useEffect(() => {
+    if (pokemonList[currentIndex]?.name === 'pikachu') {
+      alert('Tu as trouvé Pikachu !');
     }
-  );
-
-
-
+  }, [currentIndex]);
 
   return (
     <div>
-      <Navbar propsCounter={[setCurrentIndex, currentIndex]} pokemonList={pokemonList} />
+      <Navbar
+        pokemonList={pokemonList}
+        onPokemonClick={handlePokemonClick}
+      />
       <PokemonCard pokemon={pokemonList[currentIndex]} />
     </div>
   );
+}
 
+function Navbar({ pokemonList, onPokemonClick }) {
+  return (
+    <div>
+
+      {pokemonList.map((pokemon, index) => (
+        <div key={pokemon.name}>
+          <button onClick={() => onPokemonClick(index)}>
+            {pokemon.name}
+          </button>
+        </div>
+      ))}
+
+    </div>
+  );
+}
+
+function PokemonCard({ pokemon }) {
+  return (
+    <div>
+      {pokemon.imgSrc ? (
+        <figure>
+          <img src={pokemon.imgSrc} alt={pokemon.name} />
+          <figcaption>{pokemon.name}</figcaption>
+        </figure>
+      ) : (
+        <p>???</p>
+      )}
+    </div>
+  );
 }
 
 export default App;
